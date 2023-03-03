@@ -15,3 +15,5 @@ This file will contain information how to work with project
    * There is possibility of run as "java -jar [demo-0.0.1-SNAPSHOT.jar](build%2Flibs%2Fdemo-0.0.1-SNAPSHOT.jar)". Point 1. is required first
 6. How to run docker container?
    * docker run -p 8080:8080 endava/tui_demo
+7. "PROBLEM_WITH_DOWNLOAD_REPOSITORY_LIST: 401 Unauthorized:"
+   * [RestTemplateConfig.java](src%2Fmain%2Fjava%2Fcom%2Fendava%2Fdemo%2Fconfig%2FRestTemplateConfig.java):18 token is deleted by GitHub

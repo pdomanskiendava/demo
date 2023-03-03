@@ -25,13 +25,5 @@ public class ApplicationNoSecurity {
         http.authorizeHttpRequests().anyRequest().permitAll();
         return http.build();
     }
-//    @Bean
-//    public WebMvcConfigurer customConfigurer() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
-//                configurer.defaultContentType(MediaType.APPLICATION_JSON);
-//            }
-//        };
-//    }
+
 }
