@@ -9,6 +9,9 @@ import org.springframework.web.HttpMediaTypeNotAcceptableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,10 +29,19 @@ public class BaseController {
      * @return Error with basic description
      */
     @ExceptionHandler(TUIException.class)
-    public ResponseEntity<Error> handleEx(TUIException ex) {
+    public ResponseEntity<Error> handleException(TUIException ex) {
         Error error = new Error();
         error.code(String.valueOf(HttpStatus.NOT_FOUND.value()));
         error.message(ex.getTUIExceptionType().name() + ": " + ex.getDescription());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+
+    }
+
+    @ExceptionHandler(value = {IllegalArgumentException.class, IllegalStateException.class, RestClientException.class, ResponseStatusException.class, NoHandlerFoundException.class})
+    public ResponseEntity<Error> handleEx(Exception e) {
+        Error error = new Error();
+        error.code(String.valueOf(HttpStatus.NOT_FOUND.value()));
+        error.setMessage(e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 
     }

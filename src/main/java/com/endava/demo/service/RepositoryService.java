@@ -4,7 +4,6 @@ import com.endava.demo.adapter.GithubAdapter;
 import com.endava.demo.adapter.dto.GithubBranch;
 import com.endava.demo.adapter.dto.GithubRepository;
 import com.endava.demo.mapper.ResultMapper;
-import com.endava.demo.model.Branch;
 import com.endava.demo.model.Repository;
 import org.springframework.stereotype.Service;
 
