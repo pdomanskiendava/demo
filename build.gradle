@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.9'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.openapi.generator' version "6.4.0"
+    id 'org.springdoc.openapi-gradle-plugin' version "1.6.0"
+    id 'io.freefair.lombok' version "6.6.3"
+}
+
+group = 'com.endava'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    implementation 'org.projectlombok:lombok:1.18.26'
+    implementation group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
+    implementation group: 'javax.annotation', name: 'javax.annotation-api', version: '1.3.2'
+    implementation group: 'org.openapitools', name: 'jackson-databind-nullable', version: '0.2.6'
+    implementation group: 'io.swagger.core.v3', name: 'swagger-annotations', version: '2.2.8'
+    implementation group: 'io.swagger.core.v3', name: 'swagger-models', version: '2.2.8'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.14'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-core', version: '1.1.49'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
+
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+openApiGenerate {
+    generatorName = "spring"
+    inputSpec = "$rootDir/src/main/resources/swagger/test_api_contract.yaml".toString()
+    outputDir = "$buildDir/generated/sources/openapi".toString()
+    apiPackage = "com.endava.demo.api"
+    invokerPackage = "com.endava.demo.invoker"
+    modelPackage = "com.endava.demo.model"
+    configOptions = [
+            dateLibrary  : "java8",
+            interfaceOnly: "true"
+    ]
+}
+
+
+compileJava.dependsOn tasks.openApiGenerate
+sourceSets.main.java.srcDirs += "$buildDir/generated/sources/openapi/src/main/java"
