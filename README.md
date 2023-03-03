@@ -19,7 +19,7 @@ To implement this we used:
 * [Gradle](https://gradle.org/)
 
 Important URL:
-* [Springdoc](https://springdoc.org)
+* [Springdoc](http://localhost:8080/v3/api-docs/)
 * [Swagger UI](localhost:8080/swagger-ui.html)
 
 Implemented endpoint address:
