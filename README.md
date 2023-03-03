@@ -17,6 +17,7 @@ To implement this we used:
 * [Swagger](https://swagger.io/)
 * [JUnit](https://junit.org/junit5/)
 * [Gradle](https://gradle.org/)
+* [Docker](https://www.docker.com/)
 
 Important URL:
 * [Springdoc](http://localhost:8080/v3/api-docs/)
@@ -30,5 +31,8 @@ Location of swagger file:
 
 Logback config file:
 * resources/logback-spring.xml
+
+Docker file
+* [Dockerfile](Dockerfile)
 
 In case of problems see HELP.md file

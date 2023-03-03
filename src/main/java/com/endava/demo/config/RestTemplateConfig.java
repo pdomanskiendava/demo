@@ -15,7 +15,7 @@ public class RestTemplateConfig {
         RestTemplate rest = new RestTemplate();
         rest.getInterceptors().add((request, body, execution) -> {
             request.getHeaders().add("Accept","application/vnd.github+json");
-            request.getHeaders().setBearerAuth("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");
+            request.getHeaders().setBearerAuth("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");
             return execution.execute(request, body);
         });
         return rest;
