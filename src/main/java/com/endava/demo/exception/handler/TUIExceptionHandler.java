@@ -1,7 +1,9 @@
-package com.endava.demo.controller;
+package com.endava.demo.exception.handler;
 
 import com.endava.demo.exception.TUIException;
 import com.endava.demo.model.Error;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * Base controller which serves common functionalities and handling exceptions
  */
 @ControllerAdvice
-public class BaseController {
+public class TUIExceptionHandler {
 
 
     /**
@@ -31,7 +33,7 @@ public class BaseController {
     @ExceptionHandler(TUIException.class)
     public ResponseEntity<Error> handleException(TUIException ex) {
         Error error = new Error();
-        error.code(String.valueOf(HttpStatus.NOT_FOUND.value()));
+        error.status(String.valueOf(HttpStatus.NOT_FOUND.value()));
         error.message(ex.getTUIExceptionType().name() + ": " + ex.getDescription());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 
@@ -40,7 +42,7 @@ public class BaseController {
     @ExceptionHandler(value = {IllegalArgumentException.class, IllegalStateException.class, RestClientException.class, ResponseStatusException.class, NoHandlerFoundException.class})
     public ResponseEntity<Error> handleEx(Exception e) {
         Error error = new Error();
-        error.code(String.valueOf(HttpStatus.NOT_FOUND.value()));
+        error.status(String.valueOf(HttpStatus.NOT_FOUND.value()));
         error.setMessage(e.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 
@@ -52,12 +54,17 @@ public class BaseController {
      * @param exception
      * @return
      */
+    @SneakyThrows
     @ResponseBody
     @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)
     public String handleHttpMediaTypeNotAcceptableException(HttpMediaTypeNotAcceptableException exception, HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        return String.format("{“status”: %s “Message”: \"%s\" }", "406", exception.getMessage());
+        ObjectMapper mapper = new ObjectMapper();
+        Error error = new Error();
+        error.status(String.valueOf(HttpStatus.NOT_ACCEPTABLE.value()));
+        error.setMessage(exception.getMessage());
+        return mapper.writeValueAsString(error);
     }
 
 

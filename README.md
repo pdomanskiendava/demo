@@ -8,7 +8,7 @@ Requirement contains 3 based scenarios:
 * Scenario where we call with not existing user
 * Scenario where we send incorrect Accept header
 
-To implement this we used:
+### To implement this we used:
 * [OpenAPI Generator](https://openapi-generator.tech)
 * [Spring-boot based on Initializr](https://start.spring.io/)
 * [Lombok](https://projectlombok.org/)
@@ -19,20 +19,20 @@ To implement this we used:
 * [Gradle](https://gradle.org/)
 * [Docker](https://www.docker.com/)
 
-Important URL:
+### Important URL:
 * [Springdoc](http://localhost:8080/v3/api-docs/)
 * [Swagger UI](localhost:8080/swagger-ui.html)
 
-Implemented endpoint address:
+### Implemented endpoint address:
 * /repository/{username}/
 
-Location of swagger file:
+### Location of swagger file:
 * resources/swagger/test_api_contract.yaml
 
-Logback config file:
+### Logback config file:
 * resources/logback-spring.xml
 
-Docker file
+### Docker file
 * [Dockerfile](Dockerfile)
 
 In case of problems see HELP.md file

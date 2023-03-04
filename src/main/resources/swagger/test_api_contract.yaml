@@ -81,7 +81,7 @@ components:
     Error:
       type: object
       properties:
-        code:
+        status:
           type: string
           example: 406
         message:

@@ -13,8 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @RunWith(SpringRunner.class)
@@ -30,7 +29,6 @@ public class IntegrationTest {
     private static String INCORRECT_USERNAME_URL = "/repository/asdjhsdcvhkhbdfakbdadjhb/";
     private static String MISSING_USERNAME_URL = "/repository/";
     private static String EMPTY_RESULT = "/repository/pdomanski204/";
-    private static String EMPTY_ARRAY = "[]";
 
 
     @Autowired
@@ -42,7 +40,8 @@ public class IntegrationTest {
         mvc.perform(get(CORRECT_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(containsString(CORRECT_USER_NAME)));
+                .andExpect(content().string(containsString(CORRECT_USER_NAME)))
+                .andExpect(jsonPath("$").isArray());
     }
 
     @Test
@@ -50,31 +49,36 @@ public class IntegrationTest {
     public void not_existing_user() throws Exception {
         mvc.perform(get(INCORRECT_USERNAME_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(HttpStatus.NOT_FOUND.value()))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value(HttpStatus.NOT_FOUND.value()))
+                .andExpect(jsonPath("$.message").isNotEmpty());
     }
+
     @Test
     @DisplayName("Integration test which calls /repository/ endpoint without name")
     public void missing_username() throws Exception {
         mvc.perform(get(MISSING_USERNAME_URL).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(HttpStatus.NOT_FOUND.value()))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-
     }
+
     @Test
     @DisplayName("Integration test which calls endpoint with header Accept: application/xml")
     public void incorrect_accept_header() throws Exception {
         mvc.perform(get(CORRECT_URL).accept(MediaType.APPLICATION_XML).contentType(MediaType.APPLICATION_XML))
                 .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()))
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
-
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.status").value(HttpStatus.NOT_ACCEPTABLE.value()))
+                .andExpect(jsonPath("$.message").isNotEmpty());
     }
+
     @Test
     @DisplayName("Integration test which calls endpoint correctly but there is no repos or branches")
     public void lack_of_result() throws Exception {
         mvc.perform(get(EMPTY_RESULT).accept(MediaType.APPLICATION_JSON).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().string(EMPTY_ARRAY));
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$").isEmpty());
     }
 }

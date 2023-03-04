@@ -64,9 +64,6 @@ public class MainJunitTet {
         // Given
 
         GithubRepository repository = prepareCorrectNonForkRepository(OWNER_NAME, REPO_NAME);
-
-
-
         Optional<GithubBranch[]> branch = Optional.empty();
 
         // when
@@ -113,9 +110,11 @@ public class MainJunitTet {
     private static GithubBranch prepareCorrectBranch(String branchName, String sha) {
         GithubBranch githubBranch = new GithubBranch();
         githubBranch.setName(branchName);
+
         GithubCommit commit = new GithubCommit();
         commit.setSha(sha);
         githubBranch.setCommit(commit);
+
         return githubBranch;
     }
 
@@ -126,11 +125,12 @@ public class MainJunitTet {
     }
 
     private static GithubRepository prepareCorrectNonForkRepository(String ownerName, String repoName) {
+        GithubOwner owner = new GithubOwner();
+        owner.setLogin(ownerName);
+
         GithubRepository repository = new GithubRepository();
         repository.setName(repoName);
         repository.setFork(false);
-        GithubOwner owner = new GithubOwner();
-        owner.setLogin(ownerName);
         repository.setOwner(owner);
         return repository;
     }

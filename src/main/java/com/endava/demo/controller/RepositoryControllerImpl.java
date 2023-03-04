@@ -13,7 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping()
-public class RepositoryControllerImpl extends BaseController implements RepositoryApi {
+public class RepositoryControllerImpl implements RepositoryApi {
 
     private final RepositoryService repositoryService;
 
