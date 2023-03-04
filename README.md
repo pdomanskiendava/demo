@@ -2,6 +2,7 @@
 
 This is spring boot component with Swagger UI, Spring integration test, JUnit test
 
+
 ## Overview
 Requirement contains 3 based scenarios:
 * Base scenario where we call GitHub api with existing GitHub login
@@ -31,6 +32,7 @@ Requirement contains 3 based scenarios:
 
 ### Logback config file:
 * resources/logback-spring.xml
+* <span style="color:red">really important! remember to edit LOGS property! </span>
 
 ### Docker file
 * [Dockerfile](Dockerfile)

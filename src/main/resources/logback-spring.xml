@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <logger name="org.springframework.web" level="INFO"/>
 
-
-    <property name="LOGS" value="./logs" />
+    <property name="LOGS" value="../../source_code/demo/logs/" />
     <appender name="Console"
               class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -33,13 +34,13 @@
     </appender>
 
 
-    <root level="debug">
+    <root level="INFO">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </root>
 
 
-    <logger name="com.endava" level="debug" additivity="false">
+    <logger name="com.endava" level="INFO" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>
