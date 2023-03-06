@@ -83,4 +83,4 @@ components:
           example: 406
         message:
           type: string
-          example: asd
+          example: "{'status':'406','message':'Could not find acceptable representation'}"
