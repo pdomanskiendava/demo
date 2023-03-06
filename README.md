@@ -22,7 +22,7 @@ Requirement contains 3 based scenarios:
 
 ### Important URL:
 * [Springdoc](http://localhost:8080/v3/api-docs/)
-* [Swagger UI](localhost:8080/swagger-ui.html)
+* [Swagger UI](http://localhost:8080/swagger-ui.html)
 
 ### Implemented endpoint address:
 * /repository/{username}/
