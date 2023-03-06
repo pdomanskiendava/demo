@@ -25,7 +25,7 @@ public class ResultMapper {
         repository.setOwner(githubRepository.getOwner().getLogin());
 
         if (githubBranchArray.isPresent() && githubBranchArray.get().length > 0) {
-            ArrayList<Branch> branchList = mapBranchListWithLastCommitSHA(githubBranchArray);
+            var branchList = mapBranchListWithLastCommitSHA(githubBranchArray);
             repository.setLastCommit(branchList);
         }
 

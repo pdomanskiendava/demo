@@ -18,9 +18,6 @@ servers:
 tags:
   - name: repo
     description: Everything about user repo list
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
 
 paths:
   /repository/{username}/:
