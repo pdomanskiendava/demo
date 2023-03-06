@@ -16,4 +16,4 @@ This file will contain information how to work with project
 6. How to run docker container?
    * docker run -p 8080:8080 endava/tui_demo
 7. "PROBLEM_WITH_DOWNLOAD_REPOSITORY_LIST: 401 Unauthorized:"
-   * [RestTemplateConfig.java](src%2Fmain%2Fjava%2Fcom%2Fendava%2Fdemo%2Fconfig%2FRestTemplateConfig.java):18 token is deleted by GitHub
+   * [application.properties](src%2Fmain%2Fresources%2Fapplication.properties) token is deleted by GitHub, please add github.token new value
