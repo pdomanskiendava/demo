@@ -28,10 +28,10 @@ Requirement contains 3 based scenarios:
 * /repository/{username}/
 
 ### Location of swagger file:
-* resources/swagger/test_api_contract.yaml
+* [test_api_contract.yaml](src%2Fmain%2Fresources%2Fswagger%2Ftest_api_contract.yaml)
 
 ### Logback config file:
-* resources/logback-spring.xml
+* [logback-spring.xml](src%2Fmain%2Fresources%2Flogback-spring.xml)
 * <span style="color:red">really important! remember to edit LOGS property! </span>
 
 ### Docker file
