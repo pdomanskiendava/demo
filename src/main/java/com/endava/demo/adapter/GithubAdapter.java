@@ -57,7 +57,7 @@ public class GithubAdapter {
             response = restTemplate.getForEntity(String.format(repositoryBranchesUrl, owner, repository), GithubBranch[].class);
         } catch (Exception e) {
             log.error(e.getMessage());
-            throw new TUIException(TUIExceptionType.PROBLEM_WITH_DOWNLOAD_REPOSITORY_LIST, e.getMessage());
+            throw new TUIException(TUIExceptionType.PROBLEM_WITH_DOWNLOAD_BRANCH_LIST, e.getMessage());
         }
         return response.getBody();
 
